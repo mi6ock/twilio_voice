@@ -22,7 +22,7 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
     var accessToken:String?
     var identity = "alice"
     var callTo: String = "error"
-    var defaultCaller = "Unknown Caller"
+    var defaultCaller = "Unknown"
     var deviceToken: Data? {
         get{UserDefaults.standard.data(forKey: kCachedDeviceToken)}
         set{UserDefaults.standard.setValue(newValue, forKey: kCachedDeviceToken)}
@@ -746,7 +746,7 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
         
         let callUpdate = CXCallUpdate()
         callUpdate.remoteHandle = callHandle
-        callUpdate.localizedCallerName = clients[from] ?? self.clients["defaultCaller"] ?? defaultCaller
+        callUpdate.localizedCallerName = from ?? defaultCaller
         callUpdate.supportsDTMF = true
         callUpdate.supportsHolding = true
         callUpdate.supportsGrouping = false
